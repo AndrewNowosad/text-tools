@@ -1,25 +1,54 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { formatJson, unescapeSequences } from './lib/text'
+
+type Toast = { id: number; text: string }
 
 export default function App(): JSX.Element {
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
+  const [toasts, setToasts] = useState<Toast[]>([])
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    try {
+      return (localStorage.getItem('theme') as 'dark' | 'light') || 'dark'
+    } catch {
+      return 'dark'
+    }
+  })
   const inputRef = useRef<HTMLTextAreaElement | null>(null)
+  const nextToastId = useRef(1)
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    try {
+      localStorage.setItem('theme', theme)
+    } catch {}
+  }, [theme])
+
+  function pushToast(text: string, ttl = 3000) {
+    const id = nextToastId.current++
+    setToasts((t) => [...t, { id, text }])
+    setTimeout(() => {
+      setToasts((t) => t.filter((x) => x.id !== id))
+    }, ttl)
+  }
 
   async function handlePaste() {
     try {
       const text = await navigator.clipboard.readText()
       setInput(text)
+      pushToast('Pasted from clipboard')
     } catch (e) {
       // fallback: focus and execPaste
       inputRef.current?.focus()
       document.execCommand('paste')
+      pushToast('Paste fallback used')
     }
   }
 
   async function handleCopy() {
     try {
       await navigator.clipboard.writeText(output)
+      pushToast('Copied to clipboard')
     } catch (e) {
       // fallback
       const ta = document.createElement('textarea')
@@ -28,23 +57,36 @@ export default function App(): JSX.Element {
       ta.select()
       document.execCommand('copy')
       document.body.removeChild(ta)
+      pushToast('Copied (fallback)')
     }
   }
 
   function handleFormatJson() {
     try {
       setOutput(formatJson(input))
+      pushToast('Formatted JSON')
     } catch (e) {
-      setOutput((e as Error).message)
+      const msg = (e as Error).message
+      setOutput(msg)
+      pushToast(msg)
     }
   }
 
   function handleUnescape() {
     setOutput(unescapeSequences(input))
+    pushToast('Unescaped sequences')
+  }
+
+  function toggleTheme() {
+    setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
+    pushToast('Theme changed')
   }
 
   return (
     <div className="app">
+      <div className="topbar">
+        <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">{theme === 'dark' ? '🌙' : '☀️'}</button>
+      </div>
       <textarea
         ref={inputRef}
         className="pane left"
@@ -90,6 +132,12 @@ export default function App(): JSX.Element {
       </div>
 
       <textarea className="pane right" readOnly value={output} placeholder="Result appears here" />
+
+      <div className="toasts" aria-live="polite">
+        {toasts.map((t) => (
+          <div key={t.id} className="toast">{t.text}</div>
+        ))}
+      </div>
     </div>
   )
 }
