@@ -49,3 +49,16 @@ body{
   cursor:pointer;
 }
 .toolbar button:hover{filter:brightness(1.08)}
+
+.icon-btn{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.04);
+  color:var(--text);
+}
+.icon-btn svg{color:var(--text); opacity:0.9}
+.icon-btn .label{font-size:13px}
+

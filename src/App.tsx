@@ -54,10 +54,39 @@ export default function App(): JSX.Element {
       />
 
       <div className="toolbar">
-        <button onClick={handlePaste}>Paste</button>
-        <button onClick={handleCopy}>Copy</button>
-        <button onClick={handleFormatJson}>Format JSON</button>
-        <button onClick={handleUnescape}>Unescape</button>
+        <button onClick={handlePaste} className="icon-btn" title="Paste">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden>
+            <path d="M16 4h-2.5l-1-1h-3l-1 1H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M9 10h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span className="label">Paste</span>
+        </button>
+
+        <button onClick={handleCopy} className="icon-btn" title="Copy">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden>
+            <rect x="9" y="9" width="9" height="9" rx="1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span className="label">Copy</span>
+        </button>
+
+        <button onClick={handleFormatJson} className="icon-btn" title="Format JSON">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden>
+            <path d="M8 6v12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M16 6v12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M11 8h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M11 16h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span className="label">Format JSON</span>
+        </button>
+
+        <button onClick={handleUnescape} className="icon-btn" title="Unescape">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden>
+            <path d="M3 12h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M15 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span className="label">Unescape</span>
+        </button>
       </div>
 
       <textarea className="pane right" readOnly value={output} placeholder="Result appears here" />
