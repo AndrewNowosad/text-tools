@@ -84,9 +84,6 @@ export default function App(): JSX.Element {
 
   return (
     <div className="app">
-      <div className="topbar">
-        <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">{theme === 'dark' ? '🌙' : '☀️'}</button>
-      </div>
       <textarea
         ref={inputRef}
         className="pane left"
@@ -95,7 +92,7 @@ export default function App(): JSX.Element {
         onChange={(e) => setInput(e.target.value)}
       />
 
-      <div className="toolbar">
+  <div className="toolbar">
         <button onClick={handlePaste} className="icon-btn" title="Paste">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden>
             <path d="M16 4h-2.5l-1-1h-3l-1 1H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -128,6 +125,13 @@ export default function App(): JSX.Element {
             <path d="M15 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
           <span className="label">Unescape</span>
+        </button>
+        {/* theme toggle pinned to bottom of toolbar */}
+        <button onClick={toggleTheme} className="icon-btn theme-toggle" title="Toggle theme">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden>
+            <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span className="label">{theme === 'dark' ? 'Dark' : 'Light'}</span>
         </button>
       </div>
 

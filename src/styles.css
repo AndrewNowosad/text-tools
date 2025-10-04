@@ -59,8 +59,10 @@ body{
   flex-direction:column;
   gap:8px;
   align-items:stretch; /* stretch buttons to same width */
-  justify-content:center;
+  justify-content:flex-start;
   width:160px; /* fixed toolbar width to keep buttons uniform */
+  height: calc(100vh - 24px); /* full-height minus paddings */
+  padding-top: 12px;
 }
 .toolbar button{
   width:100%;
@@ -86,4 +88,9 @@ body{
 }
 .icon-btn svg{color:var(--text); opacity:0.95; flex:0 0 18px}
 .icon-btn .label{font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+
+.icon-btn.theme-toggle{margin-top:auto}
+
+/* make pane borders visible in light theme */
+:root[data-theme='light'] .pane{border:1px solid rgba(11,18,32,0.06); background: var(--panel)}
 
