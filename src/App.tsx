@@ -131,7 +131,7 @@ export default function App(): JSX.Element {
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden>
             <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span className="label">{theme === 'dark' ? 'Dark' : 'Light'}</span>
+          <span className="label">{theme === 'dark' ? 'Light' : 'Dark'}</span>
         </button>
       </div>
 
