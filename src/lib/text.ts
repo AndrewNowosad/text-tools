@@ -14,6 +14,7 @@ export function unescapeSequences(input: string): string {
     .replace(/\\r/g, '\r')
     .replace(/\\n/g, '\n')
     .replace(/\\t/g, '\t')
+    .replace(/\\"/g, '"')
     .replace(/\\b/g, '\b')
     .replace(/\\f/g, '\f')
     .replace(/\\\\/g, '\\')

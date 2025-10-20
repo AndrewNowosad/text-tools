@@ -28,4 +28,8 @@ describe('unescapeSequences', () => {
   it('handles unicode escape', () => {
     expect(unescapeSequences('\\u0041')).toBe('A')
   })
+
+  it('converts escaped double quotes', () => {
+    expect(unescapeSequences('He said: \\"Hello\\"')).toBe('He said: "Hello"')
+  })
 })
